@@ -129,4 +129,4 @@ def test_unary() -> None:
     p = Primo(maximum=3, prime_length=3, base=1)
     p.generate_representations()
     print(p.prime_list)
-    assert p.prime_strs == ["11", "111"]
+    assert p.prime_strs == ["..", "..."]

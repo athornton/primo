@@ -17,7 +17,7 @@ def to_base_n_str(n: int, base: int) -> str:
         raise RuntimeError("Base must be an integer in the range [1, 36]")
     digitabet = string.digits + string.ascii_uppercase
     if base == 1:
-        return "1" * n
+        return "." * n
     if n < base:
         return digitabet[n]
     return to_base_n_str(n // base, base) + digitabet[n % base]
