@@ -72,6 +72,8 @@ class Primo:
         """
         Return all primes whose representation (in whatever base) is N.
         """
+        if not self.prime_strs:
+            self.generate_representations()
         return [x for x in self.prime_strs if len(x) == self.prime_length]
 
     def generate_digit_freq(self) -> None:

@@ -5,7 +5,8 @@
 # After editing, update requirements/dev.txt by running:
 #     make update-deps
 
--c main.txt
+# -c main.txt
+# (we don't have any dependencies for the main project)
 
 coverage[toml]
 mypy
