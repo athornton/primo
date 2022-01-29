@@ -11,24 +11,31 @@ from .primo import Primo
 
 
 def show_prime_char_freq(
-    n: int = 100000, primes: bool = False, unary: bool = False
+    n: int = 100000,
+    primes: bool = False,
+    unary: bool = False,
+    base: int = 0,
 ) -> None:
     """
-    Show the character frequency of primes represented in all bases
+    Show the character frequency of primes represented in all bases in range
     (optionally: only prime bases) up to some maximum.
     """
-    max_base = 37
-    if primes:
-        plist = generate_primes(max_base)
-    p = Primo(maximum=n, prime_length=2)
-    p.rebuild_prime_list()
-    print(f"Primes <= {n} (n={len(p.prime_list)}):")
     least = 2
-    if unary:
-        least = 1
-    for b in range(least, max_base):
+    greatest = 37  # defaults
+    if base:
+        least = base
+        greatest = base + 1
+    else:
+        if unary:
+            least = 1
+    if primes:
+        plist = generate_primes(greatest)
+    p = Primo(maximum=n, prime_length=2)
+    print(f"Primes <= {n} (n={len(p.prime_list)}):")
+    for b in range(least, greatest):
         if primes:
             if b not in plist:
+                print(f"{b} is not prime; skipping.")
                 continue
         p.reset_base(b)
         if b > 1:
@@ -41,7 +48,7 @@ def show_prime_char_freq(
             ps = p.get_primes_of_length()
             outstr = p.generate_freqs()
             print(
-                f"Base: {b}; prime length: {d}; primes: {len(ps)}: "
+                f"Base: {b}; prime length: {d}; primes: {len(ps)}\n "
                 + f"character frequencies {outstr}"
             )
 
@@ -52,6 +59,13 @@ def get_args() -> argparse.Namespace:
     """
     parser = argparse.ArgumentParser(
         description="Look at primes in various bases"
+    )
+    parser.add_argument(
+        "-b",
+        "--base",
+        help="Only try this base (0 means all bases in range 2-36)",
+        type=int,
+        default=0,
     )
     parser.add_argument(
         "-m",
@@ -83,7 +97,9 @@ def main() -> None:
     Primary entry point
     """
     args = get_args()
-    show_prime_char_freq(n=args.max, primes=args.primes_only, unary=args.unary)
+    show_prime_char_freq(
+        n=args.max, primes=args.primes_only, unary=args.unary, base=args.base
+    )
 
 
 if __name__ == "__main__":
