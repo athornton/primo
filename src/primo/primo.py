@@ -17,7 +17,7 @@ def to_base_n_str(n: int, base: int) -> str:
         raise RuntimeError("Base must be an integer in the range [1, 36]")
     digitabet = string.digits + string.ascii_uppercase
     if base == 1:
-        return "0" * n
+        return "1" * n
     if n < base:
         return digitabet[n]
     return to_base_n_str(n // base, base) + digitabet[n % base]
@@ -36,6 +36,8 @@ class Primo:
             raise ValueError("C'mon, man. Maximum == {maximum}? Really?")
         self.maximum: int = maximum
         self.prime_length: int = prime_length
+        if base < 1 or base > 36:
+            raise ValueError("Base {base}?  Really?")
         self.base: int = base
         self.prime_strs: List[str] = []
         self.digit_freq: Dict[str, int] = {}
@@ -53,6 +55,8 @@ class Primo:
         """
         Reset the base for string representation.
         """
+        if base < 1 or base > 36:
+            raise ValueError("Base {base}?  Really?")
         if base != self.base:
             self.base = base
         self.digit_freq = {}

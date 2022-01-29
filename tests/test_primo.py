@@ -120,3 +120,13 @@ def test_frequency_str() -> None:
     assert p.generate_freqs() == (
         "{'1': 5, '6': 4, '2': 4, '5': 4, " + "'4': 3, '3': 3, '0': 1}"
     )
+
+
+def test_unary() -> None:
+    """
+    Why would you do this?
+    """
+    p = Primo(maximum=3, prime_length=3, base=1)
+    p.generate_representations()
+    print(p.prime_list)
+    assert p.prime_strs == ["11", "111"]
